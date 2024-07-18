@@ -1,0 +1,21 @@
+---
+- name: Ensure Ubuntu servers are up to date
+  hosts: Linux
+  become: yes
+  tasks:
+    - name: Update the apt package index
+      apt:
+        update_cache: yes
+
+    - name: Upgrade all packages to the latest version
+      apt:
+        name: "*"
+        state: latest
+
+    - name: Remove unused packages and dependencies
+      apt:
+        autoremove: yes
+
+    - name: Clean up the local repository of retrieved package files
+      apt:
+        autoclean: yes
